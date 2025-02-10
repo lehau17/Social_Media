@@ -1,4 +1,4 @@
 package com.booking.domain.model.entity;
 
-public class UserLoginResponse {
+public class UserCreateDto {
 }
