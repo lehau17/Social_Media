@@ -1,12 +1,12 @@
 package com.booking.application.model;
 
 import lombok.Data;
-
-
+import lombok.experimental.Accessors;
 
 
 @Data
-public class UserLoginResponse {
+@Accessors(chain = true)
+public class UserResponse {
 
     private Long id;
     private String username;

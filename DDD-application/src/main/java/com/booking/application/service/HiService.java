@@ -1,4 +1,5 @@
 package com.booking.application.service;
 
-public class HiService {
+public interface HiService {
+    String hi();
 }

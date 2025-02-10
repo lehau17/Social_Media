@@ -17,4 +17,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+
+    <dependencies>
+        <dependency>
+            <groupId>com.booking</groupId>
+            <artifactId>DDD-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+
 </project>

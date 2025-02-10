@@ -1,4 +1,5 @@
 package com.booking.domain.service;
 
-public class HiServiceDomain {
+public interface HiServiceDomain {
+    String hi();
 }

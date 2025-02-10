@@ -4,7 +4,7 @@ import com.booking.domain.repository.HiRepositoryDomain;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HiRepoInfrImpl implements HiRepositoryDomain {
+public class HiRepositoryDomainImpl implements HiRepositoryDomain {
     @Override
     public String hi() {
         return "Hello Infrastructure";

@@ -1,4 +1,5 @@
 package com.booking.domain.repository;
 
-public class HiRepositoryDomain {
+public interface HiRepositoryDomain {
+     String hi();
 }
