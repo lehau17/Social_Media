@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("auth")
 @Slf4j
 public class UserController {
     @Autowired
