@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 // set authorize cho SecurityContextHolder
                 UserDetails userDetails = userDetailSecurityRepository.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 // next
                 filterChain.doFilter(request, response);
@@ -50,5 +50,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication error: " + e.getMessage());
         }
+    }
+
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        return path.startsWith("/auth/");  // Bỏ qua filter nếu request là /auth/**
     }
 }

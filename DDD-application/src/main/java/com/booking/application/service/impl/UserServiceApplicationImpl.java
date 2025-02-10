@@ -7,6 +7,7 @@ import com.booking.domain.model.entity.User;
 import com.booking.domain.model.entity.UserCreateDto;
 import com.booking.domain.service.UserServiceDomain;
 import com.booking.infrastructure.security.JwtProvider;
+import com.nimbusds.jose.JOSEException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class UserServiceApplicationImpl implements UserServiceApplication {
      * Return response with 2 token
      * Param : user
      * */
-    private UserResponse returnUserResponseWithToken(User user) {
+    private UserResponse returnUserResponseWithToken(User user) throws JOSEException {
          return  UserMapper.toUserLoginResponse(user)
                 .setAccessToken(jwtProvider
                         .generateAccessToken(user.getId(), user.getUsername(), user.getEmail(), new String[]{"ROLE_USER"})

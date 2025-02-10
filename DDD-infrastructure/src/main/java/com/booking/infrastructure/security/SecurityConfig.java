@@ -16,17 +16,20 @@ public class SecurityConfig {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Autowired
+    private PermissionAuthenticationFilter permissionAuthenticationFilter;
 
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorize->{
-            authorize
-                    .requestMatchers("/auth/**").permitAll()
-                    .anyRequest().authenticated();
-        })
+                    authorize
+                            .requestMatchers("/auth/**").permitAll()
+                            .anyRequest().authenticated();
+                })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(permissionAuthenticationFilter, JwtAuthenticationFilter.class);
         return http.build();
     }
 }

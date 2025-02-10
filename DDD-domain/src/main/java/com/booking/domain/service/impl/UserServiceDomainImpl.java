@@ -6,11 +6,14 @@ import com.booking.domain.repository.UserRepositoryDomain;
 import com.booking.domain.service.UserServiceDomain;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
 public class UserServiceDomainImpl implements UserServiceDomain {
+    @Autowired
+    private  PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepositoryDomain userRepositoryDomain;
     @Override
@@ -25,7 +28,7 @@ public class UserServiceDomainImpl implements UserServiceDomain {
             throw new BadRequestException("User deo ton tai");
         }
         User user = foundUser.get();
-        if(!user.getPasswordHash().equals(password)) {
+        if(!this.passwordEncoder.matches(password, user.getPasswordHash())) {
             throw new BadRequestException("Wrong password");
         }
         return foundUser;
@@ -38,6 +41,7 @@ public class UserServiceDomainImpl implements UserServiceDomain {
         if (foundUser.isPresent()) {
             throw new BadRequestException("User đã tồn tại");
         }
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return this.userRepositoryDomain.createUser(user);
     }
 }
